@@ -20,6 +20,44 @@
     <target name="provision-stack"
             description="Provision a stack on AWS" />
     
-    <target name="setup"
+    <target name="setup" depends = "generate-config" 
             description="Setup external dependencies and migrate data"/>
+
+    <target name="Techo"
+            description="Test echo" >
+	    <echo msg="db.username : ${db.username}" />
+    </target>
+
+   <target name="Tcp" description="Copie de local php">
+	<echo msg="copie du fichier local.php.dis en local.php" />
+	<copy file="/var/www/zf/config/autoload/local.php.dist" 
+	      tofile="/var/www/zf/config/autoload/local.php"
+	      overwrite = "true" 
+	/>
+   </target>
+
+   <target name="generate-config" description="Copie de local dist en php">
+        <echo msg="copie du fichier php.dis en .php ${project.basedir}/config" />
+        <echo msg="${db.host}"/>
+        <echo msg="${db.port}"/>
+        <echo msg="${db.username}"/>
+        <echo msg="${db.password}"/>
+        <echo msg="${db.dbname}"/>
+
+        <copy todir="${project.basedir}/config" overwrite="true">
+          <fileset dir="${project.basedir}/config">
+            <include name="**/*.local.php.dist" />
+          </fileset>
+          <mapper type="glob" from="*.local.php.dist" to="*.local.php" /> 
+	<filterchain>
+	  <replacetokens >
+	    <token key="db.host" value="${db.host}" />
+            <token key="db.port" value="${db.port}" />
+	    <token key="db.username" value="${db.username}" />
+	    <token key="db.password" value="${db.password}" />
+	    <token key="db.dbname" value="${db.dbname}" />
+	  </replacetokens>
+	</filterchain>
+   </copy>
+   </target>
 </project>
