@@ -6,7 +6,7 @@ return [
                 'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
                 'params' => [
                     'host' => '@db.host@',
-                    'user' =>'@db.user@',
+                    'user' =>'@db.username@',
                     'password' => '@db.password@',
                     'dbname' => '@db.dbname@'
                 ],

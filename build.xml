@@ -38,8 +38,13 @@
 
    <target name="generate-config" description="Copie de local dist en php">
         <echo msg="copie du fichier php.dis en .php ${project.basedir}/config" />
-        <echo msg="${db.user}"/>
-        <copy todir="${project.basedir}/config" >
+        <echo msg="${db.host}"/>
+        <echo msg="${db.port}"/>
+        <echo msg="${db.username}"/>
+        <echo msg="${db.password}"/>
+        <echo msg="${db.dbname}"/>
+
+        <copy todir="${project.basedir}/config" overwrite="true">
           <fileset dir="${project.basedir}/config">
             <include name="**/*.local.php.dist" />
           </fileset>
@@ -47,7 +52,8 @@
 	<filterchain>
 	  <replacetokens >
 	    <token key="db.host" value="${db.host}" />
-	    <token key="db.user" value="${db.user}" />
+            <token key="db.port" value="${db.port}" />
+	    <token key="db.username" value="${db.username}" />
 	    <token key="db.password" value="${db.password}" />
 	    <token key="db.dbname" value="${db.dbname}" />
 	  </replacetokens>
