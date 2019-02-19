@@ -6,13 +6,8 @@ pipeline {
             steps {
 		echo 'Buildind..'
                 sh 'composer install'
-	    }
-        }
-        stage ('Configure') {
-            steps {
-                echo 'Configuring..'
                 sh 'vendor/bin/phing setup'
-            }
+	    }
         }
         stage ('Test') {
             steps {
