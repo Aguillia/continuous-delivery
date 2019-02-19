@@ -13,6 +13,7 @@ pipeline {
             steps {
                 echo 'Testing..'
                 sh 'vendor/bin/phpunit -c ./module/Application/tests'
+		sh 'vendor/bin/phpcs --report=checkstyle --standard=phpcs.xml --extensions=php,inc --ignore=autoload.php --ignore=Bootstrap.php --ignore=vendor/ module/Application'
             }
         }
         stage ('Deploy') {
